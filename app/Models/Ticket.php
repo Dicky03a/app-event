@@ -28,6 +28,12 @@ class Ticket extends Model
         'approval_notes'
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

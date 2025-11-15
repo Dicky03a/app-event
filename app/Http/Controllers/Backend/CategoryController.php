@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -25,6 +27,9 @@ class CategoryController extends Controller
         ]);
 
         $data = $request->only(['name', 'contact_person', 'telephone']);
+
+        // 👉 generate slug otomatis
+        $data['slug'] = Str::slug($request->name);
 
         if ($request->hasFile('icon')) {
             $data['icon'] = $request->file('icon')->store('categories', 'public');
@@ -46,8 +51,10 @@ class CategoryController extends Controller
 
         $data = $request->only(['name', 'contact_person', 'telephone']);
 
+        // 👉 update slug juga (biar tetap konsisten)
+        $data['slug'] = Str::slug($request->name);
+
         if ($request->hasFile('icon')) {
-            // Delete old icon if exists
             if ($category->icon) {
                 Storage::disk('public')->delete($category->icon);
             }

@@ -153,7 +153,7 @@
           <!-- Menu Item Profile -->
           <li>
             <a
-              href="profile.html"
+              href="{{ route('admin.ticket') }}"
               @click="selected = (selected === 'Profile' ? '':'Profile')"
               class="menu-item group"
               :class=" (selected === 'Profile') && (page === 'profile') ? 'menu-item-active' : 'menu-item-inactive'">
